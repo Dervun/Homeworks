@@ -1,35 +1,34 @@
 /*!
- * > Написать программу, печатающую все простые числа, не превосходящие заданного числа.
- * Печатает в файл.
+ * > Реализовать подсчет факториала (рекурсивно и итеративно).
  */
-#include <cstdio>
-#include <cmath>
-#include <fstream>
-using namespace std;
+#include <stdio.h>
 
-main()
+int factorialRecursive (int k)
 {
-    long long n = 0;
-    printf("Enter higher limit:\n");
-    scanf("%lld", &n);
-    bool *array = new bool[n + 1];
-    for (long long i = 2; i <= n; i++)
-        array[i] = true;
-    long long x = sqrt(n + 1);
-    for (long long i = 2; i <= x; i++)
+    return k > 1 ? k * factorialRecursive (k - 1) : 1;
+}
+
+int factorialIterative (int m)
+{
+    int result = 1;
+    for (int i = m; i >= 2; i--)
+        result *= i;
+    return result;
+}
+
+int main()
+{
+    int n = 0;
+    printf("Enter n!\n");
+    scanf("%d!", &n);
+    if (n >= 0)
     {
-        if (array[i])
-        {
-            for (long long j = i * i; j <= n; j += i)
-                array[j] = false;
-        }
+        int resultIterative = factorialIterative(n);
+        printf("%d! = %d\n", n, resultIterative);
+        int resultRecursive = factorialRecursive(n);
+        printf("%d! = %d\n", n, resultRecursive);
     }
-    ofstream fout;
-    fout.open("Prime numbers.txt");
-    for (long long i = 2; i <= n; i++)
-    {
-        if (array[i])
-            fout << i << endl;
-    }
-    delete []array;
+    else
+        printf("Error. Please, enter positiv n");
+    return 0;
 }
