@@ -4,8 +4,11 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    list.cpp
+    listsinglelinked.cpp \
+    listdoublelinked.cpp
 
 HEADERS += \
-    list.h
+    list.h \
+    listsinglelinked.h \
+    listdoublelinked.h
 

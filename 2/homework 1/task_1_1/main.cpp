@@ -4,7 +4,8 @@
  */
 #include <cstdio>
 
-#include "list.h"
+#include "listsinglelinked.h"
+#include "listdoublelinked.h"
 
 /*!
  * \brief Напоминалка
