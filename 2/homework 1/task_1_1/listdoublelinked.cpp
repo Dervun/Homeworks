@@ -1,9 +1,5 @@
 #include "listdoublelinked.h"
 
-/*!
- * \brief Создание односвязного списка
- * Длину обнуляю (охранник в счёт не идёт), охранника добавляю.
- */
 ListDoubleLinked::ListDoubleLinked()
 {
     index = 0;
@@ -11,10 +7,6 @@ ListDoubleLinked::ListDoubleLinked()
     first = security;
 }
 
-/*!
- * \brief Деструктор
- * Удаляет все ячейки, которые были в списке, в том числе охранника.
- */
 ListDoubleLinked::~ListDoubleLinked()
 {
     for (int i = 0; i < index; i++)
@@ -26,11 +18,6 @@ ListDoubleLinked::~ListDoubleLinked()
     delete first;
 }
 
-/*!
- * \brief Добавление
- * \param x Значение, которое надо добавить
- * Функция добавляет ячейку с заданным значением в голову списка (сразу после охранника).
- */
 void ListDoubleLinked::add(int x)
 {
     ListNode* newNode = new ListNode;
@@ -42,13 +29,6 @@ void ListDoubleLinked::add(int x)
     index++;
 }
 
-/*!
- * \brief Удаление
- * \param x Значение, ячейку с которым надо удалить
- * \return true, если ячейка была найдена и удалена; false, если ячейка не была найдена
- * Из-за того, что в списке могут храниться несколько ячеек с одним и тем же значением, возникает неоднозначность удаления.
- * Я удаляю ячейку, ближайшую к голове списка
- */
 bool ListDoubleLinked::remove(int x)
 {
     ListNode* currentNode = first;
@@ -59,7 +39,8 @@ bool ListDoubleLinked::remove(int x)
             ListNode* afterDetected = currentNode->next->next;
             ListNode* temporaryNode = currentNode->next;
             currentNode->next = afterDetected;
-            afterDetected->previous = currentNode;
+            if (afterDetected)
+                afterDetected->previous = currentNode;
             delete temporaryNode;
             index--;
             return true;
