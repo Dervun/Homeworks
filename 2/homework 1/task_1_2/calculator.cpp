@@ -5,7 +5,7 @@
 #include "calculator.h"
 #include "linkedstack.h"
 
-double Calculator::calculate(char* originExpression)
+double Calculator::calculate(const char* originExpression)
 {
     char* expression = Calculator::infixToPostfix(originExpression);
     Stack<double>* s = new LinkedStack<double>;
@@ -60,6 +60,7 @@ double Calculator::calculate(char* originExpression)
     }
     delete []expression;
     double result = s->pop();
+    delete s;
     return result;
 }
 
@@ -69,7 +70,7 @@ void Calculator::clearBuffer(char* buffer)
         buffer[j] = ' ';
 }
 
-double Calculator::getDouble(int length, char* expression, int &i)
+double Calculator::getDouble(int length, const char* expression, int &i)
 {
     char buffer[50];
     Calculator::clearBuffer(buffer);
@@ -82,7 +83,7 @@ double Calculator::getDouble(int length, char* expression, int &i)
     return x;
 }
 
-char* Calculator::infixToPostfix(char *expression)
+char* Calculator::infixToPostfix(const char *expression)
 {
     Stack<char>* s = new LinkedStack<char>;
     int lengthExpression = strlen(expression);
@@ -146,7 +147,7 @@ char* Calculator::infixToPostfix(char *expression)
     return postfixExpression;
 }
 
-void Calculator::takeDouble(char* postfixExpression, int &k, char* expression, int &i, bool &lastIsDigit)
+void Calculator::takeDouble(char* postfixExpression, int &k, const char* expression, int &i, bool &lastIsDigit)
 {
     while (isdigit(expression[i]) || expression[i] == '.')
     {
