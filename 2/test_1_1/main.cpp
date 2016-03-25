@@ -6,11 +6,13 @@
  * Юнит-тесты и документация обязательны.
  */
 #include <cstdio>
+
 #include "queue.h"
+#include "queuetest.h"
 
 /*!
  * \brief Напоминалка
- * Функция, которая напоминает пользователю, как давать команды списку.
+ * Функция, которая напоминает пользователю, как давать команды программе.
  * Вызывается каждое четвёртое обращение пользователя к программе.
  */
 void reminder()
@@ -23,21 +25,23 @@ void reminder()
  * Все команды, которые пользователь может применять к программе.
  */
 enum Select{
-    exit = 0, ///< Выход из программы
+    exitFromProgram = 0, ///< Выход из программы
     push, ///< Добавить элемент в очередь
     pop, ///< Взять первый элемент из очереди
 };
 
 int main()
-{ 
+{
+    QueueTest test;
+    QTest::qExec(&test);
     reminder();
-    Select x = exit;
+    Select x = exitFromProgram;
     int input = 0;
     scanf("%d", &input);
     x = (Select) input;
     Queue<int, int>* q = new Queue<int, int>;
     int k = 0;
-    while (x != exit)
+    while (x != exitFromProgram)
     {
         k++;
         switch (x)

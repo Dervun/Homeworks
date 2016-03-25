@@ -20,6 +20,14 @@ public:
     ~Queue();
     void enqueue(T newValue, Cmp compare);
     T dequeue();
+    /*!
+     * \brief Размер очереди
+     * \return Целое число - размер очереди (количество элементов в очереди)
+     */
+    int size()
+    {
+        return index;
+    }
 private:
     /*!
      * \brief Ячейка очереди
@@ -44,6 +52,7 @@ private:
     };
     QueueNode* first = nullptr; ///< Указатель на первый элемент в очереди (тот, который будет взят первым)
     QueueNode* last = nullptr; ///< Указатель на последний элемент в очереди (тот, который будет взят последним)
+    int index = 0; ///< Текущий размер очереди
 };
 
 template <typename T, typename Cmp>
@@ -76,12 +85,14 @@ void Queue<T, Cmp>::enqueue(T newValue, Cmp compare)
     {
         first = newNode;
         last = newNode;
+        index++;
         return;
     }
     if (newNode->cmp > first->cmp)
     {
         newNode->next = first;
         first = newNode;
+        index++;
         return;
     }
     QueueNode* currentNode = first;
@@ -97,6 +108,7 @@ void Queue<T, Cmp>::enqueue(T newValue, Cmp compare)
         newNode->next = currentNode->next;
         currentNode->next = newNode;
     }
+    index++;
 }
 
 template <typename T, typename Cmp>
@@ -121,5 +133,6 @@ T Queue<T, Cmp>::dequeue()
         first = first->next;
         delete nodeToDelete;
     }
+    index--;
     return valueForReturn;
 }
