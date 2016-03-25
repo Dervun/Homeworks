@@ -9,11 +9,20 @@
 
 using namespace std;
 
+/*!
+ * \brief Структурка для выбора типа печати
+ */
 enum Select{
-    console = 1,
-    file
+    console = 1, ///< Печать в консоль
+    file ///< Печать в файл
 };
 
+/*!
+ * \brief Создаёт двумерный массив
+ * \param lengthOfArray Длина массива
+ * \return Указатель на созданный массив
+ * Заполняет двумервый массив заданной длины рандомно целыми числами от 0 до 99 включительно.
+ */
 int** buildArray(int lengthOfArray)
 {
     int **array = new int*[lengthOfArray];
@@ -34,6 +43,12 @@ int** buildArray(int lengthOfArray)
     return array;
 }
 
+/*!
+ * \brief Удаляет двумерный массив
+ * \param array Указатель на удаляемый массив
+ * \param lengthOfArray Длина массива
+ * Вынес сюда, чтобы не загромождать main.
+ */
 void removeArray(int** array, int lengthOfArray)
 {
     for (int i = 0; i < lengthOfArray; i++)

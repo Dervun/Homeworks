@@ -4,7 +4,14 @@
 class ConsoleWriter : public Writer
 {
 public:
-    ConsoleWriter(){}
-    ~ConsoleWriter(){}
     void write(int** array, int size);
+private:
+    /*!
+     * \brief Обычная такая печать целого числа в консоль.
+     * \param value Значение для печати
+     */
+    void print(int value)
+    {
+        printf("%d, ", value);
+    }
 };

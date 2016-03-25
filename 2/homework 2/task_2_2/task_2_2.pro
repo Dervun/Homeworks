@@ -4,8 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    consolewriter.cpp \
-    filewriter.cpp
+    writer.cpp
 
 HEADERS += \
     writer.h \
