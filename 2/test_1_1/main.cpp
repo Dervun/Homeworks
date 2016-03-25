@@ -65,6 +65,7 @@ int main()
             {
                 if (errorCode == 0)
                     printf("Queue is empty :(\n");
+                break;
             }
             printf("Value == %d :)\n", value);
             break;
