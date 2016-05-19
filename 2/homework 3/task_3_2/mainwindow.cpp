@@ -6,15 +6,19 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    Calculator* calc = new Calculator;
     ui->setupUi(this);
     connect(ui->firstValue, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),
-            calc, Calculator::recalculate(this));
+            this, &MainWindow::recalculate);
     connect(ui->secondValue, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),
-            calc, Calculator::recalculate(this));
+            this, &MainWindow::recalculate);
     connect(ui->operation, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-            calc, Calculator::recalculate(this));
-    delete calc;
+            this, &MainWindow::recalculate);
+}
+
+void MainWindow::recalculate()
+{
+    double result = Calculator::recalculate(ui->firstValue->value(), ui->secondValue->value(), ui->operation->currentText().at(0).unicode());
+    ui->result->setText(QString::number(result, 'g', 6));
 }
 
 MainWindow::~MainWindow()

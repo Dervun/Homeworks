@@ -15,4 +15,6 @@ public:
     ~MainWindow();
 private:
     Ui::MainWindow *ui;
+private slots:
+    void recalculate();
 };

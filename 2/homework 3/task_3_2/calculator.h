@@ -3,6 +3,6 @@
 
 class Calculator
 {
-public slots:
-    void recalculate(MainWindow* window);
+public:
+    static double recalculate(int firstValue, int secondValue, char operation);
 };

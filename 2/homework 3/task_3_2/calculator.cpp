@@ -1,10 +1,7 @@
 #include "calculator.h"
 
-void Calculator::recalculate(MainWindow *window)
+double Calculator::recalculate(int firstValue, int secondValue, char operation)
 {
-    int firstValue = ui->firstValue->value();
-    int secondValue = ui->secondValue->value();
-    char operation = ui->operation->currentText().at(0).unicode();
     double result = 0;
     switch (operation)
     {
@@ -30,5 +27,5 @@ void Calculator::recalculate(MainWindow *window)
         break;
     }
     }
-    ui->result->setText(QString::number(result, 'g', 6));
+    return result;
 }
