@@ -1,21 +1,6 @@
 #include "calculator.h"
-#include "ui_calculator.h"
 
-Calculator::Calculator(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::Calculator)
-{
-    ui->setupUi(this);
-    connect(ui->firstValue, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),
-            this, &Calculator::recalculate);
-    connect(ui->secondValue, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),
-            this, &Calculator::recalculate);
-    connect(ui->operation, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-            this, &Calculator::recalculate);
-
-}
-
-void Calculator::recalculate()
+void Calculator::recalculate(MainWindow *window)
 {
     int firstValue = ui->firstValue->value();
     int secondValue = ui->secondValue->value();
@@ -46,9 +31,4 @@ void Calculator::recalculate()
     }
     }
     ui->result->setText(QString::number(result, 'g', 6));
-}
-
-Calculator::~Calculator()
-{
-    delete ui;
 }

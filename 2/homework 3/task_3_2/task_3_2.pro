@@ -6,9 +6,13 @@ TARGET = task_3_2
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        calculator.cpp
+SOURCES += main.cpp \
+    mainwindow.cpp \
+    calculator.cpp
 
-HEADERS  += calculator.h
+HEADERS  += \
+    mainwindow.h \
+    calculator.h
 
-FORMS    += calculator.ui
+FORMS    += \
+    mainwindow.ui

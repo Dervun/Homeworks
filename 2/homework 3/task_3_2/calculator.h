@@ -1,20 +1,8 @@
 #pragma once
-#include <QMainWindow>
+#include "mainwindow.h"
 
-namespace Ui
+class Calculator
 {
-    class Calculator;
-}
-
-class Calculator : public QMainWindow
-{
-    Q_OBJECT
-
-public:
-    explicit Calculator(QWidget *parent = 0);
-    ~Calculator();
-private:
-    Ui::Calculator *ui;
-private slots:
-    void recalculate();
+public slots:
+    void recalculate(MainWindow* window);
 };
