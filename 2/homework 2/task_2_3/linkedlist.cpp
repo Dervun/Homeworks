@@ -60,9 +60,9 @@ bool LinkedList::remove(int x)
     return false;
 }
 
-ListComparable *LinkedList::getClone()
+LinkedList *LinkedList::getClone()
 {
-    ListComparable* newLinkedList = new LinkedList;
+    LinkedList* newLinkedList = new LinkedList;
     ListNode* currentNode = first->next;
     for (int i = 0; i < listLength; i++)
     {

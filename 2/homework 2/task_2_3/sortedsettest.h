@@ -22,7 +22,7 @@ private slots:
 
     void pushTest()
     {
-        ListComparable* newList = createListWithSpecificLength(10);
+        LinkedList* newList = createListWithSpecificLength(10);
         set->addTreeNode(newList);
         delete newList;
         QVERIFY(set->treeHeight() == 1);
@@ -30,17 +30,17 @@ private slots:
 
     void searchTest()
     {
-        ListComparable* newList = createListWithSpecificLength(5);
+        LinkedList* newList = createListWithSpecificLength(5);
         set->addTreeNode(newList);
-        delete newList;
         QVERIFY(set->search(newList) != nullptr);
+        delete newList;
     }
 
     void manyPushTest()
     {
         for (int i = 1; i < 15; i++)
         {
-            ListComparable* newList = createListWithSpecificLength(i);
+            LinkedList* newList = createListWithSpecificLength(i);
             set->addTreeNode(newList);
             delete newList;
         }
@@ -51,11 +51,11 @@ private slots:
     {
         for (int i = 1; i < 15; i++)
         {
-            ListComparable* newList = createListWithSpecificLength(i);
+            LinkedList* newList = createListWithSpecificLength(i);
             set->addTreeNode(newList);
             delete newList;
         }
-        ListComparable* newList = createListWithSpecificLength(5);
+        LinkedList* newList = createListWithSpecificLength(5);
         QVERIFY((*(set->search(newList)))->value->length() == 5);
         delete newList;
         newList = createListWithSpecificLength(3);
@@ -68,7 +68,7 @@ private slots:
     
     void removeTest()
     {
-        ListComparable* newList = createListWithSpecificLength(10);
+        LinkedList* newList = createListWithSpecificLength(10);
         set->addTreeNode(newList);
         QVERIFY(set->removeTreeNode(newList));
         QVERIFY(set->treeHeight() == 0);
@@ -79,11 +79,11 @@ private slots:
     {
         for (int i = 1; i < 15; i++)
         {
-            ListComparable* newList = createListWithSpecificLength(i);
+            LinkedList* newList = createListWithSpecificLength(i);
             set->addTreeNode(newList);
             delete newList;
         }
-        ListComparable* listForRemove = createListWithSpecificLength(5);
+        LinkedList* listForRemove = createListWithSpecificLength(5);
         QVERIFY(set->removeTreeNode(listForRemove));
         delete listForRemove;
         listForRemove = createListWithSpecificLength(7);
@@ -98,11 +98,11 @@ private slots:
     {
         for (int i = 1; i < 15; i++)
         {
-            ListComparable* newList = createListWithSpecificLength(i);
+            LinkedList* newList = createListWithSpecificLength(i);
             set->addTreeNode(newList);
             delete newList;
         }
-        ListComparable* listForRemove = createListWithSpecificLength(20);
+        LinkedList* listForRemove = createListWithSpecificLength(20);
         QVERIFY(!set->removeTreeNode(listForRemove));
         delete listForRemove;
         listForRemove = createListWithSpecificLength(33);
@@ -112,5 +112,5 @@ private slots:
 
 private:
     SortedSet* set;
-    ListComparable* createListWithSpecificLength(int length);
+    LinkedList* createListWithSpecificLength(int length);
 };

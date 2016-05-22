@@ -1,11 +1,10 @@
 #pragma once
-#include "listcomparable.h"
 
 /*!
  * \brief Двусвязный список
  * Наследуется от класса List, чтобы к элементам можно было обращаться, как к просто списку (к List).
  */
-class LinkedList : public ListComparable
+class LinkedList
 {
 public:
     /*!
@@ -44,7 +43,7 @@ public:
      * \return Указатель на идентичный список.
      * Функция создаёт такой же список и возвращает указатель на созданную копию.
      */
-    ListComparable* getClone();
+    LinkedList* getClone();
 private:
     /*!
      * \brief Ячейка  двусвязного списка
@@ -57,4 +56,5 @@ private:
         int value = 0; ///< Значение, хранящееся в ячейке списка.
     };
     ListNode* first; ///< Указатель на первый элемент списка.
+    int listLength = 0; ///< Текущая длина списка.
 };

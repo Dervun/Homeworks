@@ -8,11 +8,11 @@ SOURCES += main.cpp \
     linkedlist.cpp \
     sortedset.cpp \
     sortedsettest.cpp \
-    listcomparable.cpp
+    listcomparator.cpp
 
 HEADERS += \
     linkedlist.h \
     sortedset.h \
     sortedsettest.h \
-    listcomparable.h
+    listcomparator.h
 

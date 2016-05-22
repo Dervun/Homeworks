@@ -1,5 +1,6 @@
 #pragma once
 #include "linkedlist.h"
+#include "listcomparator.h"
 
 /*!
  * \brief Класс Отсортированное множество
@@ -19,11 +20,11 @@ public:
          * \param newList Указатель на список, который будет помещён в ячейку.
          * Функция создаёт и помещает в ячейку идентичный входному список.
          */
-        TreeNode(ListComparable* newList)
+        TreeNode(LinkedList* newList)
         {
             value = newList->getClone();
         }
-        ListComparable* value; ///< Список, который хранится в ячейке.
+        LinkedList* value; ///< Список, который хранится в ячейке.
         int height = 1; ///< Высота поддерева, которое образует данная вершина со своими детьми.
         TreeNode* leftChild = nullptr; ///< Указатель на левого ребёнка.
         TreeNode* rightChild = nullptr; ///< Указатель на правого ребёнка.
@@ -38,13 +39,13 @@ public:
      * \return true - если элемент добавлен успешно, false - если элемент добавить не удалось.
      * Повторяющиеся элементы не добавляет.
      */
-    bool addTreeNode(ListComparable* newList);
+    bool addTreeNode(LinkedList* newList);
     /*!
      * \brief Поиск
      * \param list Лист, который надо найти в дереве.
      * \return Указатель на указатель на найденную ячейку.
      */
-    TreeNode** search(ListComparable* list);
+    TreeNode** search(LinkedList *list);
     /*!
      * \brief Высота дерева
      * \return Высоту дерева. Если пустое, то 0. Если там только голова, то 1.
@@ -55,7 +56,7 @@ public:
      * \param list Список, ячейку с которым нужно удалить.
      * \return true, если ячейка была найдена и удалена; false, если ячейка не была найдена и соответственно удалена.
      */
-    bool removeTreeNode(ListComparable* list);
+    bool removeTreeNode(LinkedList* list);
     /*!
      * \brief Деструктор
      * Освобождает всю память, занятую под дерево, в том числе память, выделенную под списки в ячейках дерева.
@@ -68,21 +69,21 @@ private:
      * \param currentNode Указатель на узел, от которого ведётся добавление.
      * \param newList Указатель на список, который надо добавить.
      */
-    static void addTreeLeaf(TreeNode* &currentNode, ListComparable* newList);
+    static void addTreeLeaf(TreeNode* &currentNode, LinkedList *newList);
     /*!
      * \brief Добавить ячейку
      * \param currentNode Указатель на текущую ячейку.
      * \param newList Указатель на список, который надо добавить.
      * Рекурсивная функция, идёт по дереву в поисках места для добавления.
      */
-    static void addTreeNode(TreeNode* &currentNode, ListComparable* newList);
+    static void addTreeNode(TreeNode* &currentNode, LinkedList* newList);
     /*!
      * \brief Поиск
      * \param currentNode Указатель на текущую ячейку.
      * \param list Указатель на список, который надо найти.
      * \return Указатель на указатель на найденную ячейку.
      */
-    static TreeNode** search(TreeNode* &currentNode, ListComparable* list);
+    static TreeNode** search(TreeNode* &currentNode, LinkedList *list);
     /*!
      * \brief Обновление высоты
      * \param currentNode Текущая ячейка, у которой требуется обновить.
@@ -140,5 +141,5 @@ private:
      * \param currentNode Указатель на текущий узел, от которого ведётся удаление.
      * \param list Список, который надо удалить из дерева.
      */
-    static void removeTreeNode(TreeNode* &currentNode, ListComparable *list);
+    static void removeTreeNode(TreeNode* &currentNode, LinkedList *list);
 };

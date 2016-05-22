@@ -3,7 +3,7 @@
 using namespace std;
 
 
-bool SortedSet::addTreeNode(ListComparable *newList)
+bool SortedSet::addTreeNode(LinkedList *newList)
 {
     if (root == nullptr)
     {
@@ -16,7 +16,7 @@ bool SortedSet::addTreeNode(ListComparable *newList)
     return true;
 }
 
-SortedSet::TreeNode** SortedSet::search(ListComparable *list)
+SortedSet::TreeNode** SortedSet::search(LinkedList *list)
 {
     return search(root, list);
 }
@@ -28,7 +28,7 @@ int SortedSet::treeHeight()
     return root->height;
 }
 
-bool SortedSet::removeTreeNode(ListComparable *list)
+bool SortedSet::removeTreeNode(LinkedList *list)
 {
     if (this->search(list) == nullptr)
         return false;
@@ -41,15 +41,15 @@ SortedSet::~SortedSet()
     clearTree(root);
 }
 
-void SortedSet::addTreeLeaf(TreeNode* &currentNode, ListComparable *newList)
+void SortedSet::addTreeLeaf(TreeNode* &currentNode, LinkedList *newList)
 {
     TreeNode* newNode = new TreeNode(newList);
     currentNode = newNode;
 }
 
-void SortedSet::addTreeNode(SortedSet::TreeNode* &currentNode, ListComparable *newList)
+void SortedSet::addTreeNode(SortedSet::TreeNode* &currentNode, LinkedList *newList)
 {
-    if (ListComparable::compareLists(newList, currentNode->value) == -1)
+    if (ListComparator::compareLists(newList, currentNode->value) == -1)
     {
         if (currentNode->leftChild != nullptr)
         {
@@ -77,13 +77,13 @@ void SortedSet::addTreeNode(SortedSet::TreeNode* &currentNode, ListComparable *n
     }
 }
 
-SortedSet::TreeNode** SortedSet::search(SortedSet::TreeNode* &currentNode, ListComparable *list)
+SortedSet::TreeNode** SortedSet::search(SortedSet::TreeNode* &currentNode, LinkedList *list)
 {
     if (currentNode == nullptr)
         return nullptr;
-    if (ListComparable::compareLists(list, currentNode->value) == 0)
+    if (ListComparator::compareLists(list, currentNode->value) == 0)
         return &currentNode;
-    if (ListComparable::compareLists(list, currentNode->value) == -1)
+    if (ListComparator::compareLists(list, currentNode->value) == -1)
         return search(currentNode->leftChild, list);
     return search(currentNode->rightChild, list);
 }
@@ -179,15 +179,15 @@ SortedSet::TreeNode** SortedSet::findMin(SortedSet::TreeNode* &currentNode)
     return findMin(currentNode->leftChild);
 }
 
-void SortedSet::removeTreeNode(SortedSet::TreeNode* &currentNode, ListComparable* list)
+void SortedSet::removeTreeNode(SortedSet::TreeNode* &currentNode, LinkedList *list)
 {
-    if (ListComparable::compareLists(list, currentNode->value) == -1)
+    if (ListComparator::compareLists(list, currentNode->value) == -1)
     {
         removeTreeNode(currentNode->leftChild, list);
         balance(currentNode);
         return;
     }
-    if (ListComparable::compareLists(list, currentNode->value) == 1)
+    if (ListComparator::compareLists(list, currentNode->value) == 1)
     {
         removeTreeNode(currentNode->rightChild, list);
         balance(currentNode);
