@@ -46,6 +46,6 @@ private:
     HashFunction *hashFunction = new PolinomialHash(); ///< Хэш-функция, работающая в таблице.
 signals:
     void needRebuildingTable();
-private slots:
+public slots:
     void rebuildTable();
 };
