@@ -1,6 +1,9 @@
 #pragma once
 #include "hashfunction.h"
 
+/*!
+ * \brief H37 хэш-функция
+ */
 class HashH37 : public HashFunction
 {
 public:

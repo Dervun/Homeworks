@@ -1,6 +1,9 @@
 #pragma once
 #include "hashfunction.h"
 
+/*!
+ * \brief Ly хеш-функция
+ */
 class HashLy : public HashFunction
 {
 public:
