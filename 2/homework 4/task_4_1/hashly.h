@@ -3,6 +3,8 @@
 
 /*!
  * \brief Ly хеш-функция
+ * Подробности работы и эффективности хэш-функции по адресу:
+ * habrahabr.ru/post/219139/
  */
 class HashLy : public HashFunction
 {
