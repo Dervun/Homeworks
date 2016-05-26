@@ -38,14 +38,14 @@ public:
     int maxLengthOfList();
     void clearTable();
     ~HashTable();
+signals:
+    void needRebuildingTable();
 private:
     int size = 103; ///< Размер хеш-таблицы.
     double loadFactor = 0; ///< Среднее количество строк на один список таблицы.
     int quantity = 0; ///< Количество слов в хеш-таблице.
     QList<QString> *table; ///< Сама таблица, состоящая из списков, состоящих из строк.
     HashFunction *hashFunction = new PolinomialHash(); ///< Хэш-функция, работающая в таблице.
-signals:
-    void needRebuildingTable();
-public slots:
+private slots:
     void rebuildTable();
 };
