@@ -1,5 +1,9 @@
 #pragma once
 #include <QMainWindow>
+#include <QHBoxLayout>
+#include <QSpinBox>
+#include <QComboBox>
+#include <QLineEdit>
 
 namespace Ui
 {
@@ -15,6 +19,11 @@ public:
     ~MainWindow();
 private:
     Ui::MainWindow *ui;
+  /*QSpinBox* firstValue;
+    QSpinBox* secondValue;
+    QLineEdit* result;
+    QComboBox* operation;*/
+    QHBoxLayout* hlayout;
 private slots:
     void recalculate();
 };

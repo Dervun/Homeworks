@@ -7,6 +7,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Calculator");
+
+    ui->operation->addItem("+");
+    ui->operation->addItem("-");
+    ui->operation->addItem("*");
+    ui->operation->addItem("/");
+
     connect(ui->firstValue, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),
             this, &MainWindow::recalculate);
     connect(ui->secondValue, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),
