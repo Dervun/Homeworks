@@ -7,5 +7,6 @@ SOURCES += main.cpp
 
 HEADERS += \
     set.h \
-    settest.h
+    settest.h \
+    avltree.h
 

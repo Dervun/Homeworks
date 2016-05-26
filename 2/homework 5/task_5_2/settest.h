@@ -28,7 +28,7 @@ private slots:
 
     void addTest()
     {
-        s->addTreeNode(value);
+        s->add(value);
         QVERIFY(s->exists(value));
     }
 
@@ -36,30 +36,30 @@ private slots:
     {
         const int quantityOfAdding = 20;
         for (int i = 0; i < quantityOfAdding; i++)
-            s->addTreeNode(i);
+            s->add(i);
         for (int i = 0; i < quantityOfAdding; i++)
             QVERIFY(s->exists(i));
     }
 
     void removeTest()
     {
-        s->addTreeNode(value);
-        s->removeTreeNode(value);
+        s->add(value);
+        s->remove(value);
         QVERIFY(!s->exists(value));
     }
 
     void falseRemoveTest()
     {
-        QVERIFY(!s->removeTreeNode(value));
+        QVERIFY(!s->remove(value));
     }
 
     void manyRemoveTest()
     {
         const int quantityOfAdding = 20;
         for (int i = 0; i < quantityOfAdding; i++)
-            s->addTreeNode(i);
+            s->add(i);
         for (int i = 0; i < quantityOfAdding; i++)
-            s->removeTreeNode(i);
+            s->remove(i);
         for (int i = 0; i < quantityOfAdding; i++)
             QVERIFY(!s->exists(i));
     }
@@ -74,8 +74,8 @@ private slots:
         {
             firstArray[i] = i;
             secondArray[i] = i - size / 2;
-            s->addTreeNode(firstArray[i]);
-            secondSet->addTreeNode(secondArray[i]);
+            s->add(firstArray[i]);
+            secondSet->add(secondArray[i]);
         }
         Set<int> *resultSet = Set<int>::intersectionOfSets(s, secondSet);
         for(int i = 0; i < size / 2; i++)
@@ -94,8 +94,8 @@ private slots:
         {
             firstArray[i] = i;
             secondArray[i] = i + size / 2;
-            s->addTreeNode(firstArray[i]);
-            secondSet->addTreeNode(secondArray[i]);
+            s->add(firstArray[i]);
+            secondSet->add(secondArray[i]);
         }
         Set<int> *resultSet = Set<int>::mergeOfSets(s, secondSet);
         for(int i = 0; i < size + size / 2; i++)
