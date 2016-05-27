@@ -76,36 +76,28 @@ public:
         qsort(array, 0, size - 1);
     }
 private:
-    void qsort(char** a, int primordialLeft, int primordialRight);
+    void qsort(char **a, int primordialLeft, int primordialRight)
+    {
+        int left = primordialLeft;
+        int right = primordialRight;
+        char* median = a[(left + right) / 2];
+        while (left < right)
+        {
+            while (strcmp(a[left], median) < 0 && left <= right)
+                left++;
+            while (strcmp(a[right], median) > 0 && right >= left)
+                right--;
+            if (left <= right)
+            {
+                swap(a[left], a[right]);
+                left++;
+                right--;
+            }
+        }
+        if (right > primordialLeft)
+            qsort(a, primordialLeft, right);
+        if (left < primordialRight)
+            qsort(a, left, primordialRight);
+    }
 };
 
-/*!
- * \brief Рекурсивная функция сортировки массива строк
- * \param a Массив, который надо сортировать
- * \param primordialLeft Левая граница сортировки
- * \param primordialRight Правая граница сортировки
- * Запускает себя от одной и другой половины массива.
- */
-void QuickSort<char*>::qsort(char** a, int primordialLeft, int primordialRight)
-{
-    int left = primordialLeft;
-    int right = primordialRight;
-    char* median = a[(left + right) / 2];
-    while (left < right)
-    {
-        while (strcmp(a[left], median) < 0 && left <= right)
-            left++;
-        while (strcmp(a[right], median) > 0 && right >= left)
-            right--;
-        if (left <= right)
-        {
-            swap(a[left], a[right]);
-            left++;
-            right--;
-        }
-    }
-    if (right > primordialLeft)
-        qsort(a, primordialLeft, right);
-    if (left < primordialRight)
-        qsort(a, left, primordialRight);
-}

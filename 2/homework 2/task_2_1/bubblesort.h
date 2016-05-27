@@ -1,10 +1,8 @@
 #pragma once
 #include <algorithm>
-
 #include "sort.h"
 
 using namespace std;
-
 template <typename T>
 /*!
  * \brief Класс пузырьковой сортировки

@@ -6,12 +6,17 @@
 #include <cstdio>
 #include <string.h>
 
-#include "bubblesort.h"
-#include "heapsort.h"
-#include "quicksort.h"
+#include "sorttest.h"
 
 int main()
 {
+    SortTest test1(0);
+    QTest::qExec(&test1);
+    SortTest test2(1);
+    QTest::qExec(&test2);
+    SortTest test3(2);
+    QTest::qExec(&test3);
+  /* При необходимости раскомментировать.
     printf("Please, enter length of array (less than 100):\n");
     int lengthOfArray = 0;
     scanf("%d", &lengthOfArray);
@@ -27,5 +32,6 @@ int main()
         printf("%Lg ", array[i]);
     printf("\nEnd :)\n");
     return 0;
+  */
 }
 
