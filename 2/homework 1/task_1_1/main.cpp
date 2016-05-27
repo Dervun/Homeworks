@@ -3,9 +3,7 @@
  * Реализовать этот список двумя разными способами (односвязный/двусвязный, на массиве/на указателях и т.п.) на основе полученного интерфейса.
  */
 #include <cstdio>
-
-#include "listsinglelinked.h"
-#include "listdoublelinked.h"
+#include "listtest.h"
 
 /*!
  * \brief Напоминалка
@@ -22,7 +20,7 @@ void reminder()
  * Все команды, которые пользователь может применять к программе.
  */
 enum Select{
-    exit = 0, ///< Выход из программы
+    endOfProgram = 0, ///< Выход из программы
     addNode, ///< Добавить элемент в список
     removeNode, ///< Удалить элемент из списка
     lengthOfList ///< Узнать длину спика
@@ -92,14 +90,19 @@ void auxiliaryRemove(List* list)
 
 int main()
 {
+    ListTest test1(true);
+    QTest::qExec(&test1);
+    ListTest test2(false);
+    QTest::qExec(&test2);
+  /* В случае необходимости - раскомментировать.
     List* list = singleOrDouble();
     reminder();
-    Select x = exit;
+    Select x = endOfProgram;
     int input;
     scanf("%d", &input);
     x = (Select) input;
     int k = 0;
-    while (x != exit)
+    while (x != endOfProgram)
     {
         k++;
         switch (x)
@@ -135,5 +138,6 @@ int main()
     }
     delete list;
     return 0;
+  */
 }
 
