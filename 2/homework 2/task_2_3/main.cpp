@@ -6,7 +6,6 @@
  */
 #include <cstdio>
 
-#include "sortedset.h"
 #include "sortedsettest.h"
 
 int main()
