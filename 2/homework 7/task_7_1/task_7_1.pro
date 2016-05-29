@@ -6,7 +6,6 @@ QT += core testlib
 SOURCES += main.cpp
 
 HEADERS += \
-    set.h \
     bag.h \
     bagtest.h
 
