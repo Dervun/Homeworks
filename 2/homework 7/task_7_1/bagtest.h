@@ -92,4 +92,62 @@ private slots:
             QCOMPARE(bag->getQuantity(i), 10);
     }
 
+    void intersectionQuantityTest()
+    {
+        Bag<int> *secondBag = new Bag<int>;
+        bag->add(value, 10);
+        secondBag->add(value, 3);
+        Bag<int> *newBag = Bag<int>::intersection(bag, secondBag);
+        QCOMPARE(newBag->getQuantity(value), 3);
+    }
+
+    void intersectionOfBagsTest()
+    {
+        Bag<int> *secondBag = new Bag<int>;
+        int const size = 20;
+        int firstArray[size];
+        int secondArray[size];
+        for(int i = 0; i < size; i++)
+        {
+            firstArray[i] = i;
+            secondArray[i] = i - size / 2;
+            bag->add(firstArray[i], i + 1);
+            secondBag->add(secondArray[i], i + 1);
+        }
+        Bag<int> *resultBag = Bag<int>::intersection(bag, secondBag);
+        for(int i = 0; i < size / 2; i++)
+            QVERIFY(resultBag->exists(i));
+        delete secondBag;
+        delete resultBag;
+    }
+
+    void mergeQuantityTest()
+    {
+        Bag<int> *secondBag = new Bag<int>;
+        bag->add(value, 10);
+        secondBag->add(value, 3);
+        Bag<int> *newBag = Bag<int>::merge(bag, secondBag);
+        QCOMPARE(newBag->getQuantity(value), 10);
+    }
+
+    void mergeOfBagsTest()
+    {
+        Bag<int> *secondBag = new Bag<int>;
+        int const size = 20;
+        int firstArray[size];
+        int secondArray[size];
+        for(int i = 0; i < size; i++)
+        {
+            firstArray[i] = i;
+            secondArray[i] = i + size / 2;
+            bag->add(firstArray[i], i + 1);
+            secondBag->add(secondArray[i], i + 1);
+        }
+        Bag<int> *resultBag = Bag<int>::merge(bag, secondBag);
+        for(int i = 0; i < size + size / 2; i++)
+            QVERIFY(resultBag->exists(i));
+        delete secondBag;
+        delete resultBag;
+    }
+
 };

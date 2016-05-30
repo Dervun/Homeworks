@@ -1,7 +1,8 @@
 #pragma once
 #include <algorithm>
 #include <stdexcept>
-#include "set.h"
+#include <algorithm>
+using namespace std;
 
 template <typename T>
 /*!
@@ -30,6 +31,8 @@ public:
             return "Error! Attempt to add element with quantity less then 1!";
         }
     };
+    Bag(){}
+    Bag(Bag<T> *bag);
     ~Bag()
     {
         clearTree(root);
@@ -68,6 +71,20 @@ public:
      * \return Количество таких элементов в множестве.
      */
     int getQuantity(const T &value);
+    /*!
+     * \brief Пересечение
+     * \param firstBag Первое множество.
+     * \param secondBag Второе множество.
+     * \return Множество, содержащее только те элементы, которые есть в каждом из 2-х множеств и в том количестве, в котором они есть в каждом из множеств.
+     */
+    static Bag<T> *intersection(Bag<T> *firstBag, Bag<T> *secondBag);
+    /*!
+     * \brief Объединение
+     * \param firstBag Первое множество.
+     * \param secondBag Второе множество.
+     * \return Множество, содержащее все элементы первого и второго множеств в максимальном их количестве.
+     */
+    static Bag<T> *merge(Bag<T> *firstBag, Bag<T> *secondBag);
 private:
     /*!
      * \brief Ячейка дерева, представляющего мультимножество.
@@ -169,7 +186,32 @@ private:
      * \param value Элемент, который надо удалить из дерева.
      */
     void removeNode(BagNode* &currentNode, const T &value, int quantity) throw (RemoveNodeWithTooManyQuantity);
+    /*!
+     * \brief Пересечение множеств
+     * \param firstBagNode Текущая ячейка первого множества.
+     * \param secondBag Второе множество.
+     * \param newBag Новое, итоговое множество, являющееся объединением первого и второго множеств.
+     */
+    static void intersection(BagNode *firstBagNode, Bag<T> *secondBag, Bag<T> *newBag);
+    /*!
+     * \brief Объединение множеств
+     * \param firstBagNode Текущая ячейка первого множества.
+     * \param newBag Новое, итоговое множество, являющееся объединением первого и второго множеств.
+     */
+    static void merge(BagNode *firstBagNode, Bag<T> *newBag);
+    /*!
+     * \brief Клонирование множества
+     * \param currentNode Текущий узел, от которого идёт клонирование.
+     * Вспомогательная фукция для конструктора.
+     */
+    void cloneBag(BagNode *currentNode);
 };
+
+template <typename T>
+Bag<T>::Bag(Bag<T> *bag)
+{
+    cloneBag(bag->root);
+}
 
 template <typename T>
 void Bag<T>::add(const T &newValue, int quantity) throw (AddNodeWithTooLessQuantity)
@@ -413,6 +455,52 @@ void Bag<T>::removeNode(BagNode *&currentNode, const T &value, int quantity) thr
 }
 
 template <typename T>
+void Bag<T>::intersection(BagNode *firstBagNode, Bag<T> *secondBag, Bag<T> *newBag)
+{
+    if (firstBagNode != nullptr)
+    {
+        if (secondBag->exists(firstBagNode->value))
+        {
+            int secondQuantity = secondBag->getQuantity(firstBagNode->value);
+            int minQuantity = min(firstBagNode->quantity, secondQuantity);
+            newBag->add(firstBagNode->value, minQuantity);
+        }
+        intersection(firstBagNode->leftChild, secondBag, newBag);
+        intersection(firstBagNode->rightChild, secondBag, newBag);
+    }
+}
+
+template <typename T>
+void Bag<T>::merge(BagNode *firstBagNode, Bag<T> *newBag)
+{
+    if (firstBagNode != nullptr)
+    {
+        BagNode **detectedNode = newBag->search(firstBagNode->value);
+        if (detectedNode == nullptr)
+            newBag->add(firstBagNode->value, firstBagNode->quantity);
+        else
+        {
+            int secondQuantity = (*detectedNode)->quantity;
+            if (firstBagNode->quantity > secondQuantity)
+                newBag->add(firstBagNode->value, firstBagNode->quantity - secondQuantity);
+        }
+        merge(firstBagNode->leftChild, newBag);
+        merge(firstBagNode->rightChild, newBag);
+    }
+}
+
+template <typename T>
+void Bag<T>::cloneBag(BagNode *currentNode)
+{
+    if (currentNode != nullptr)
+    {
+        this->add(currentNode->value, currentNode->quantity);
+        cloneBag(currentNode->leftChild);
+        cloneBag(currentNode->rightChild);
+    }
+}
+
+template <typename T>
 int Bag<T>::getHeight()
 {
     return root->height;
@@ -431,4 +519,20 @@ int Bag<T>::getQuantity(const T &value)
     if (detectedNode == nullptr)
         return 0;
     return (*detectedNode)->quantity;
+}
+
+template <typename T>
+Bag<T> *Bag<T>::intersection(Bag<T> *firstBag, Bag<T> *secondBag)
+{
+    Bag<T> *newBag = new Bag<T>;
+    intersection(firstBag->root, secondBag, newBag);
+    return newBag;
+}
+
+template <typename T>
+Bag<T> *Bag<T>::merge(Bag<T> *firstBag, Bag<T> *secondBag)
+{
+    Bag<T> *newBag = new Bag<T>(secondBag);
+    merge(firstBag->root, newBag);
+    return newBag;
 }
