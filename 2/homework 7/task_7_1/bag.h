@@ -117,6 +117,7 @@ Bag<T> *Bag<T>::intersection(Bag<T> *firstBag, Bag<T> *secondBag)
         if (firstBag->exists(i.first))
             result->add(i.first, min(firstBag->getQuantity(i.first), i.second));
     }
+    delete list2;
     return result;
 }
 
@@ -130,5 +131,7 @@ Bag<T> *Bag<T>::merge(Bag<T> *firstBag, Bag<T> *secondBag)
         result->add(i.first, i.second);
     for (QPair<T, int> i : *list2)
         result->add(i.first, i.second);
+    delete list1;
+    delete list2;
     return result;
 }
