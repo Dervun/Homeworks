@@ -1,7 +1,7 @@
 TEMPLATE = app
 CONFIG += console c++11
 CONFIG -= app_bundle
-CONFIG -= qt
+QT += core testlib
 
 SOURCES += main.cpp \
     listsinglelinked.cpp \
@@ -10,5 +10,6 @@ SOURCES += main.cpp \
 HEADERS += \
     list.h \
     listsinglelinked.h \
-    listdoublelinked.h
+    listdoublelinked.h \
+    listtest.h
 

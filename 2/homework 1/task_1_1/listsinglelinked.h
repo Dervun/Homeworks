@@ -43,8 +43,8 @@ private:
     class ListNode
     {
     public:
-        ListNode* next = nullptr;
-        int value = 0;
+        ListNode* next = nullptr; ///< Указатель на следующую ячейку.
+        int value = 0; ///< Значение, хранящееся в ячейке.
     };
-    ListNode* first;
+    ListNode* first; ///< Указатель на первый элемент списка.
 };
