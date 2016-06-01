@@ -67,7 +67,7 @@ private slots:
     void removeWithMoreThanExistsQuantityTest()
     {
         bag->add(value, 10);
-        QVERIFY_EXCEPTION_THROWN(bag->remove(value, 15), Bag<int>::RemoveNodeWithTooManyQuantity);
+        QVERIFY_EXCEPTION_THROWN(bag->remove(value, 15), Set<int>::RemoveNodeWithTooManyQuantity);
     }
 
     void manyRemoveWithMaxQuantityTest()
@@ -119,15 +119,6 @@ private slots:
             QVERIFY(resultBag->exists(i));
         delete secondBag;
         delete resultBag;
-    }
-
-    void mergeQuantityTest()
-    {
-        Bag<int> *secondBag = new Bag<int>;
-        bag->add(value, 10);
-        secondBag->add(value, 3);
-        Bag<int> *newBag = Bag<int>::merge(bag, secondBag);
-        QCOMPARE(newBag->getQuantity(value), 10);
     }
 
     void mergeOfBagsTest()

@@ -7,5 +7,6 @@ SOURCES += main.cpp
 
 HEADERS += \
     bag.h \
-    bagtest.h
+    bagtest.h \
+    set.h
 
