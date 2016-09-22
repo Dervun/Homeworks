@@ -37,6 +37,7 @@ LocalAreaNetwork::LocalAreaNetwork(FILE *informationFile)
         numberOfSymbol += 2;
     }
     delete types;
+    computers[0]->setInfected(true);
 
 
     char* currentString = new char[lengthOfString];
@@ -46,10 +47,10 @@ LocalAreaNetwork::LocalAreaNetwork(FILE *informationFile)
         numberOfSymbol = 0;
         for  (int j = 0; j < quantityOfComputers; j++)
         {
-            if (currentString[numberOfSymbol] == '1')
-                matrixOfCommunications[i][j] = true;
-            else
+            if (currentString[numberOfSymbol] == '0')
                 matrixOfCommunications[i][j] = false;
+            else
+                matrixOfCommunications[i][j] = true;
             numberOfSymbol += 2;
         }
     }
@@ -79,7 +80,38 @@ void LocalAreaNetwork::viewState()
 
 void LocalAreaNetwork::makeStep()
 {
-    printf("An attempt to make a step :)\n");
+    bool* wasInfectedEarlier = new bool[quantityOfComputers];  //Computer was infected earlier than on current step
+    for (int i = 0; i < quantityOfComputers; i++)
+    {
+        if (computers[i]->isInfected())
+            wasInfectedEarlier[i] = true;
+        else
+            wasInfectedEarlier[i] = false;
+    }
+
+    for (int i = 0; i < quantityOfComputers; i++)
+    {
+        if (computers[i]->isInfected() && wasInfectedEarlier[i])
+        {
+            for (int j = 0; j < quantityOfComputers; j++)
+            {
+                if (matrixOfCommunications[i][j] && !computers[j]->isInfected())
+                    computers[j]->tryToInfect();
+            }
+        }
+    }
+
+    delete []wasInfectedEarlier;
+}
+
+bool LocalAreaNetwork::allComputersWasInfected()
+{
+    for (int i = 0; i < quantityOfComputers; i++)
+    {
+        if (!computers[i]->isInfected())
+            return false;
+    }
+    return true;
 }
 
 LocalAreaNetwork::~LocalAreaNetwork()

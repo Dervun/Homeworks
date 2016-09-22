@@ -1,7 +1,7 @@
 TEMPLATE = app
 CONFIG += console c++11
 CONFIG -= app_bundle
-CONFIG -= qt
+QT += testlib core
 
 SOURCES += main.cpp \
     localareanetwork.cpp \
@@ -9,7 +9,8 @@ SOURCES += main.cpp \
 
 HEADERS += \
     computer.h \
-    localareanetwork.h
+    localareanetwork.h \
+    computertest.h
 
 DISTFILES += \
     Computers.txt

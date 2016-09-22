@@ -32,6 +32,10 @@ public:
      * \return true - успешно (компьютер заражён), false - неудача (компьютер не был заражён).
      */
     bool tryToInfect();
+    double getProbabitityOfInfection()
+    {
+        return probabitityOfInfection;
+    }
 
 private:
     bool infected = false;

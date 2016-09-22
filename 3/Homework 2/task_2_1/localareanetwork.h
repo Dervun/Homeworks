@@ -8,6 +8,7 @@ public:
     LocalAreaNetwork(FILE* informationFile);
     void viewState();
     void makeStep();
+    bool allComputersWasInfected();
     ~LocalAreaNetwork();
 private:
     int quantityOfComputers = 0;

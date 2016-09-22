@@ -25,13 +25,16 @@ Computer::Computer(TypeOfOS value)
     default:
         break;
     }
+    srand(time(0));
 }
 
 bool Computer::tryToInfect()
 {
-    srand(time(0));
     double currentProbability = (double) rand() / RAND_MAX;
     if (currentProbability < probabitityOfInfection)
+    {
         infected = true;
-    return infected;
+        return true;
+    }
+    return false;
 }

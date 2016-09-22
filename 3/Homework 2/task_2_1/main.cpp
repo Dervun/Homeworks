@@ -8,7 +8,11 @@
  *   d) заражения (и проверки, заразился компьютер или нет) происходят дискретно - по ходам.
  * Требуется периодически выводить состояние сети. Нужны тесты, проверяющие правильность процесса заражения.
  */
+#include <ctime>
+#include <cstdlib>
+
 #include "localareanetwork.h"
+#include "computertest.h"
 
 
 int main()
@@ -20,11 +24,21 @@ int main()
         return 1;
     }
     LocalAreaNetwork* myNetwork = new LocalAreaNetwork(informationFile);
-    printf("An attempt to view state:\n");
+    fclose(informationFile);
     myNetwork->viewState();
-    printf("An attempt to make a step:\n");
-    myNetwork->makeStep();
+    int numberOfStep = 1;
+    while (!myNetwork->allComputersWasInfected())
+    {
+        printf("\n");
+        myNetwork->makeStep();
+        printf("%d)Step\n", numberOfStep);
+        myNetwork->viewState();
+        numberOfStep++;
+    }
     delete myNetwork;
+    printf("\nPlease, wait...\nThere is the testing...\n");
+    ComputerTest test;
+    QTest::qExec(&test);
     return 0;
 }
 
