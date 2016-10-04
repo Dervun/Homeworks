@@ -18,11 +18,9 @@ public:
     {
         return infected[numberOfComputer];
     }
-    void setInfected(int numberOfComputer, bool value)
-    {
-        computers[numberOfComputer]->setInfected(value);
-    }
-    ~LocalAreaNetwork();
+    void setInfected(int numberOfComputer, bool value);
+    virtual void tryToInfect(int numberOfComputer);
+    virtual ~LocalAreaNetwork();
 protected:
     int quantityOfComputers = 0;
     bool** matrixOfCommunications = nullptr;

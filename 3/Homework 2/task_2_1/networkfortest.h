@@ -5,5 +5,5 @@ class NetworkForTest : public LocalAreaNetwork
 {
 public:
     NetworkForTest(FILE* informationFile) : LocalAreaNetwork(informationFile){}
-    void makeStep();
+    void tryToInfect(int numberOfComputer);
 };

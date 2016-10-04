@@ -38,10 +38,10 @@ private slots:
         QVERIFY2(testNetwork->getQuantityOfInfectedComputers() == 3, "Wrong computers have been infected");
         testNetwork->makeStep();
         QVERIFY2(testNetwork->isInfected(4) && testNetwork->isInfected(5), "Not all computers have been infected");
-        QVERIFY2(testNetwork->getQuantityOfInfectedComputers() == 5, "Wrong computers have been infected");
         testNetwork->makeStep();
         QVERIFY2(testNetwork->isInfected(7), "Not all computers have been infected");
-        QVERIFY2(testNetwork->getQuantityOfInfectedComputers() == 6, "Wrong computers have been infected");
+        testNetwork->makeStep();
+        QVERIFY2(testNetwork->isInfected(6), "Not all computers have been infected");
         testNetwork->makeStep();
         QVERIFY2(testNetwork->allComputersWasInfected(), "Something was wrong");
     }
@@ -52,13 +52,11 @@ private slots:
         testNetwork->setInfected(5, true);
         testNetwork->makeStep();
         QVERIFY2(testNetwork->isInfected(1) && testNetwork->isInfected(7), "Not all computers have been infected");
-        QVERIFY2(testNetwork->getQuantityOfInfectedComputers() == 3, "Wrong computers have been infected");
         testNetwork->makeStep();
         QVERIFY2(testNetwork->isInfected(0) && testNetwork->isInfected(6), "Not all computers have been infected");
-        QVERIFY2(testNetwork->getQuantityOfInfectedComputers() == 5, "Wrong computers have been infected");
         testNetwork->makeStep();
         QVERIFY2(testNetwork->isInfected(2) && testNetwork->isInfected(3), "Not all computers have been infected");
-        QVERIFY2(testNetwork->getQuantityOfInfectedComputers() == 7, "Wrong computers have been infected");
+        testNetwork->makeStep();
         QVERIFY2(testNetwork->allComputersWasInfected(), "Something was wrong");
     }
 

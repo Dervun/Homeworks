@@ -51,12 +51,17 @@ void LocalAreaNetwork::makeStep()
             for (int j = 0; j < quantityOfComputers; j++)
             {
                 if (matrixOfCommunications[i][j] && !computers[j]->isInfected())
-                    computers[j]->tryToInfect();
+                    tryToInfect(j);
             }
         }
     }
 
     refreshInfected();
+}
+
+void LocalAreaNetwork::tryToInfect(int numberOfComputer)
+{
+    computers[numberOfComputer]->tryToInfect();
 }
 
 bool LocalAreaNetwork::allComputersWasInfected()
@@ -78,6 +83,12 @@ int LocalAreaNetwork::getQuantityOfInfectedComputers()
             result++;
     }
     return result;
+}
+
+void LocalAreaNetwork::setInfected(int numberOfComputer, bool value)
+{
+    computers[numberOfComputer]->setInfected(value);
+    this->refreshInfected();
 }
 
 LocalAreaNetwork::~LocalAreaNetwork()
