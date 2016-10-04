@@ -11,7 +11,7 @@
 #include <ctime>
 #include <cstdlib>
 
-#include "localareanetwork.h"
+#include "localareanetworktest.h"
 #include "computertest.h"
 
 
@@ -36,9 +36,12 @@ int main()
         numberOfStep++;
     }
     delete myNetwork;
-    printf("\nPlease, wait...\nThere is the testing...\n");
-    ComputerTest test;
-    QTest::qExec(&test);
+    printf("\nPlease, wait...\nThere is the testing...\n\n");
+    ComputerTest test1;
+    QTest::qExec(&test1);
+    printf("\n\n");
+    LocalAreaNetworkTest test2;
+    QTest::qExec(&test2);
     return 0;
 }
 

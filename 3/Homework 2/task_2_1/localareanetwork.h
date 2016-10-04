@@ -9,9 +9,26 @@ public:
     void viewState();
     void makeStep();
     bool allComputersWasInfected();
+    int getQuantityOfAllComputers()
+    {
+        return quantityOfComputers;
+    }
+    int getQuantityOfInfectedComputers();
+    bool isInfected(int numberOfComputer)
+    {
+        return infected[numberOfComputer];
+    }
+    void setInfected(int numberOfComputer, bool value)
+    {
+        computers[numberOfComputer]->setInfected(value);
+    }
     ~LocalAreaNetwork();
-private:
+protected:
     int quantityOfComputers = 0;
     bool** matrixOfCommunications = nullptr;
     Computer** computers = nullptr;
+    bool* infected = nullptr;
+    void refreshInfected();
+    void getTypes(FILE* informationFile);
+    void getCommunications(FILE* informationFile);
 };

@@ -5,13 +5,17 @@ QT += testlib core
 
 SOURCES += main.cpp \
     localareanetwork.cpp \
-    computer.cpp
+    computer.cpp \
+    networkfortest.cpp
 
 HEADERS += \
     computer.h \
     localareanetwork.h \
-    computertest.h
+    computertest.h \
+    localareanetworktest.h \
+    networkfortest.h
 
 DISTFILES += \
-    Computers.txt
+    Computers.txt \
+    Test_file.txt
 
