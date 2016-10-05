@@ -1,6 +1,7 @@
-#include "computer.h"
 #include <ctime>
 #include <cstdlib>
+
+#include "computer.h"
 
 Computer::Computer(TypeOfOS value)
 {
@@ -9,17 +10,17 @@ Computer::Computer(TypeOfOS value)
     {
     case Linux:
     {
-        probabitityOfInfection = 0.5;
+        probabitityOfInfection = 0.4;
         break;
     }
     case Windows:
     {
-        probabitityOfInfection = 0.7;
+        probabitityOfInfection = 0.6;
         break;
     }
     case Mac:
     {
-        probabitityOfInfection = 0.3;
+        probabitityOfInfection = 0.25;
         break;
     }
     default:
@@ -30,11 +31,10 @@ Computer::Computer(TypeOfOS value)
 
 bool Computer::tryToInfect()
 {
+    if (infected)
+        return true;
     double currentProbability = (double) rand() / RAND_MAX;
     if (currentProbability < probabitityOfInfection)
-    {
         infected = true;
-        return true;
-    }
-    return false;
+    return infected;
 }

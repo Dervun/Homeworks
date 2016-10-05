@@ -7,15 +7,24 @@ enum TypeOfOS
     Mac
 };
 
+/*!
+ * \brief сласс Computer
+ * Класс описывает компьютер, который может заражаться.
+ */
 class Computer
 {
 public:
-    Computer(TypeOfOS value);
+    /*!
+     * \brief Конструктор
+     * \param value Тип операционной системы создаваемого компьютера
+     * От типа ОС зависит вероятность заражения.
+     */
+    Computer(TypeOfOS value = Linux);
     TypeOfOS getType()
     {
         return type;
     }
-    void setInfected(bool value)
+    void setInfected(bool value = true)
     {
         infected = value;
     }
@@ -38,7 +47,7 @@ public:
     }
 
 private:
-    bool infected = false;
+    bool infected = false; ///< Текущее состояние (заражён/не заражён)
     double probabitityOfInfection = 0.5;
     TypeOfOS type = Linux;
 };

@@ -4,6 +4,10 @@
 
 #include "computer.h"
 
+/*!
+ * \brief Класс для тестирования класса Computer
+ * Тестирование производится на соответствие реальной частоты заражения компьютера той, которая у него указана.
+ */
 class ComputerTest : public QObject
 {
     Q_OBJECT
@@ -13,41 +17,38 @@ private slots:
 
     void linuxInfectionRate()
     {
-        computer = new Computer(Linux);
-        double result = averageFrequencyOfInfected(10000);
+        double result = averageFrequencyOfInfected(Linux, 10000);
         QVERIFY(abs(result - computer->getProbabitityOfInfection()) < 0.1);
-        printf("Expected - %g, result - %g\n", computer->getProbabitityOfInfection(), result);
-        delete computer;
+        printf("Expected: %g; result: %g\n", computer->getProbabitityOfInfection(), result);
     }
 
     void windowsInfectionRate()
     {
-        computer = new Computer(Windows);
-        double result = averageFrequencyOfInfected(10000);
+        double result = averageFrequencyOfInfected(Windows, 10000);
         QVERIFY(abs(result - computer->getProbabitityOfInfection()) < 0.1);
-        printf("Expected - %g, result - %g\n", computer->getProbabitityOfInfection(), result);
-        delete computer;
+        printf("Expected: %g; result: %g\n", computer->getProbabitityOfInfection(), result);
     }
 
     void macInfectionRate()
     {
-        computer = new Computer(Mac);
-        double result = averageFrequencyOfInfected(10000);
+        double result = averageFrequencyOfInfected(Mac, 10000);
         QVERIFY(abs(result - computer->getProbabitityOfInfection()) < 0.1);
-        printf("Expected - %g, result - %g\n", computer->getProbabitityOfInfection(), result);
-        delete computer;
+        printf("Expected: %g; result: %g\n", computer->getProbabitityOfInfection(), result);
     }
 
 private:
     Computer* computer;
-    double averageFrequencyOfInfected(int quantityOfAttempts)
+    double averageFrequencyOfInfected(TypeOfOS type, int quantityOfAttempts)
     {
+        computer = new Computer(type);
         int quantityOfInfected = 0;
         for (int i = 0; i < quantityOfAttempts; i++)
         {
             if (computer->tryToInfect())
                 quantityOfInfected++;
+            computer->setInfected(false);
         }
+        delete computer;
         return (double) quantityOfInfected / quantityOfAttempts;
     }
 };

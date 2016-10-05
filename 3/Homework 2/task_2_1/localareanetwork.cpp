@@ -50,7 +50,7 @@ void LocalAreaNetwork::makeStep()
         {
             for (int j = 0; j < quantityOfComputers; j++)
             {
-                if (matrixOfCommunications[i][j] && !computers[j]->isInfected())
+                if (matrixOfCommunications[i][j] && !infected[j])
                     tryToInfect(j);
             }
         }
