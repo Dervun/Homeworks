@@ -11,10 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->gameField->setScene(game.getScene());
-    QPixmap newLandscape;
-    newLandscape.convertFromImage(QImage(":/new/prefix1/images/landscape.png").scaled(ui->gameField->maximumWidth() - 2, ui->gameField->maximumHeight() - 2));
-    QGraphicsPixmapItem* landscape = new QGraphicsPixmapItem(newLandscape);
-    ui->gameField->scene()->addItem(landscape);
 
     keyEnter->setKey(Qt::Key_Return);
     keySpace->setKey(Qt::Key_Space);

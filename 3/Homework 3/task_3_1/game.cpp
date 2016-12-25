@@ -10,6 +10,11 @@ Game::Game(QObject *parent) : QObject(parent)
 {
     scene = new QGraphicsScene();
     scene->setSceneRect(QRect(0, 0, 677, 371));
+    QPixmap newLandscape;
+    newLandscape.convertFromImage(QImage(":/new/prefix1/images/landscape.png").scaled(679, 379));
+    QGraphicsPixmapItem* landscape = new QGraphicsPixmapItem(newLandscape);
+    scene->addItem(landscape);
+
     blackCannon = new Cannon(scene);
     blackCannon->setPosition(109);
     redCannon = new Cannon(scene, red);

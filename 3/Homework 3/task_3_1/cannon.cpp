@@ -119,12 +119,10 @@ void Cannon::correctVerticalPosition()
     qreal y = myCannon->y();
     if (myCannon->collidingItems().isEmpty())
     {
-        int k = 0;
-        while (myCannon->collidingItems().isEmpty() && k < 104)
+        while (myCannon->collidingItems().isEmpty())
         {
             y++;
             myCannon->setY(y);
-            k++;
         }
     }
     else
