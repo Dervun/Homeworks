@@ -1,20 +1,114 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "./NetworkComponent/client.h"
+#include "./NetworkComponent/server.h"
 
-#include <QPixmap>
-#include <QGraphicsScene>
-#include <QGraphicsItem>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->gameField->setScene(game.getScene());
 
+    game = new Game;
+    ui->gameField->setScene(game->getScene());
+
+    ui->connectButton->setVisible(false);
+
+    setKeys();
+    activateKeys();
+    connect(keyNewGame, SIGNAL(activated()), game, SLOT(startNewGame()));
+
+    connectButtons();
+
+    connect(game, SIGNAL(lockScene()), this, SLOT(deactivateKeys()));
+    connect(game, SIGNAL(unlockScene()), this, SLOT(activateKeys()));
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+
+    delete keyNewGame;
+    delete keyEnter;
+    delete keySpace;
+
+    delete keyLeft;
+    delete keyRight;
+    delete keyUp;
+    delete keyDown;
+
+    delete keyW;
+    delete keyA;
+    delete keyS;
+    delete keyD;
+
+    if (network != nullptr)
+        delete network;
+}
+
+void MainWindow::createClient()
+{
+    network = new Client(game);
+    connect(network, SIGNAL(connectedOtherNetworkObject()), this, SLOT(hideNetworkSettings()));
+    connect(ui->connectButton, SIGNAL(clicked(bool)), network, SLOT(connectToServer()));
+
+    disconnect(ui->clientButton, SIGNAL(clicked(bool)), this, SLOT(createClient()));
+}
+
+void MainWindow::createServer()
+{
+    network = new Server(game);
+    connect(network, SIGNAL(connectedOtherNetworkObject()), this, SLOT(hideNetworkSettings()));
+    game->changeEnemy();
+
+    disconnect(ui->serverButton, SIGNAL(clicked(bool)), this, SLOT(createServer()));
+}
+
+void MainWindow::hideNetworkSettings()
+{
+    ui->connectButton->setVisible(false);
+    ui->serverButton->setVisible(false);
+    ui->clientButton->setVisible(false);
+    setFixedHeight(400);
+}
+
+void MainWindow::activateKeys()
+{
+    connect(keyEnter, SIGNAL(activated()), game, SLOT(makeShot()));
+    connect(keySpace, SIGNAL(activated()), game, SLOT(mirror()));
+
+    connect(keyLeft, SIGNAL(activated()), game, SLOT(moveLeft()));
+    connect(keyRight, SIGNAL(activated()), game, SLOT(moveRight()));
+    connect(keyUp, SIGNAL(activated()), game, SLOT(rotateUp()));
+    connect(keyDown, SIGNAL(activated()), game, SLOT(rotateDown()));
+
+    connect(keyW, SIGNAL(activated()), game, SLOT(rotateUp()));
+    connect(keyA, SIGNAL(activated()), game, SLOT(moveLeft()));
+    connect(keyS, SIGNAL(activated()), game, SLOT(rotateDown()));
+    connect(keyD, SIGNAL(activated()), game, SLOT(moveRight()));
+}
+
+void MainWindow::deactivateKeys()
+{
+    disconnect(keyEnter, SIGNAL(activated()), game, SLOT(makeShot()));
+    disconnect(keySpace, SIGNAL(activated()), game, SLOT(mirror()));
+
+    disconnect(keyLeft, SIGNAL(activated()), game, SLOT(moveLeft()));
+    disconnect(keyRight, SIGNAL(activated()), game, SLOT(moveRight()));
+    disconnect(keyUp, SIGNAL(activated()), game, SLOT(rotateUp()));
+    disconnect(keyDown, SIGNAL(activated()), game, SLOT(rotateDown()));
+
+    disconnect(keyW, SIGNAL(activated()), game, SLOT(rotateUp()));
+    disconnect(keyA, SIGNAL(activated()), game, SLOT(moveLeft()));
+    disconnect(keyS, SIGNAL(activated()), game, SLOT(rotateDown()));
+    disconnect(keyD, SIGNAL(activated()), game, SLOT(moveRight()));
+}
+
+void MainWindow::setKeys()
+{
     keyEnter->setKey(Qt::Key_Return);
     keySpace->setKey(Qt::Key_Space);
-    keyTab->setKey(Qt::Key_Tab);
 
     keyLeft->setKey(Qt::Key_Left);
     keyRight->setKey(Qt::Key_Right);
@@ -25,23 +119,19 @@ MainWindow::MainWindow(QWidget *parent) :
     keyA->setKey(Qt::Key_A);
     keyS->setKey(Qt::Key_S);
     keyD->setKey(Qt::Key_D);
-
-    connect(keyEnter, SIGNAL(activated()), &game, SLOT(makeShot()));
-    connect(keySpace, SIGNAL(activated()), &game, SLOT(mirror()));
-    connect(keyTab, SIGNAL(activated()), &game, SLOT(changeMove()));
-
-    connect(keyLeft, SIGNAL(activated()), &game, SLOT(moveLeft()));
-    connect(keyRight, SIGNAL(activated()), &game, SLOT(moveRight()));
-    connect(keyUp, SIGNAL(activated()), &game, SLOT(rotateUp()));
-    connect(keyDown, SIGNAL(activated()), &game, SLOT(rotateDown()));
-
-    connect(keyW, SIGNAL(activated()), &game, SLOT(rotateUp()));
-    connect(keyA, SIGNAL(activated()), &game, SLOT(moveLeft()));
-    connect(keyS, SIGNAL(activated()), &game, SLOT(rotateDown()));
-    connect(keyD, SIGNAL(activated()), &game, SLOT(moveRight()));
 }
 
-MainWindow::~MainWindow()
+void MainWindow::connectButtons()
 {
-    delete ui;
+    connect(ui->clientButton, SIGNAL(clicked(bool)), ui->connectButton, SLOT(show()));
+
+    connect(ui->clientButton, SIGNAL(clicked(bool)), this, SLOT(createClient()));
+    connect(ui->clientButton, SIGNAL(clicked(bool)), ui->clientButton, SLOT(setEnabled(bool)));
+    connect(ui->clientButton, SIGNAL(clicked(bool)), ui->serverButton, SLOT(setVisible(bool)));
+    connect(ui->clientButton, SIGNAL(clicked(bool)), ui->label, SLOT(setVisible(bool)));
+
+    connect(ui->serverButton, SIGNAL(clicked(bool)), this, SLOT(createServer()));
+    connect(ui->serverButton, SIGNAL(clicked(bool)), ui->serverButton, SLOT(setEnabled(bool)));
+    connect(ui->serverButton, SIGNAL(clicked(bool)), ui->clientButton, SLOT(setVisible(bool)));
+    connect(ui->serverButton, SIGNAL(clicked(bool)), ui->label, SLOT(setVisible(bool)));
 }

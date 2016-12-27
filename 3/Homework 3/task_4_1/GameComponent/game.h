@@ -14,17 +14,24 @@ class Game : public QObject
 public:
     explicit Game(QObject *parent = 0);
     QGraphicsScene* getScene();
+    void changeEnemy();
     ~Game();
 
-private:
-    QGraphicsScene* scene;
-    Cannon* blackCannon;
-    Cannon* redCannon;
-    Cannon* currentCannon;
-    bool movesBlackCannon = true;
+signals:
+    // for current cannon
+    void cannonShot();
+    void movedLeft();
+    void movedRight();
+    void rotatedUp();
+    void rotatedDown();
+    void turned();
+    void startedNewGame();
+
+    void lockScene();
+    void unlockScene();
 
 private slots:
-    /// Current cannon make shot
+    // for current cannon
     void makeShot();
     void moveLeft();
     void moveRight();
@@ -32,6 +39,16 @@ private slots:
     void rotateDown();
     void mirror();
 
-    void changeMove();
-};
+    void changeCurrent();
+    void displayResultOfGame();
+    void startNewGame();
+private:
+    void updateSceneLocking();
+    void addLandscapeAndCannonsAtScene();
 
+    QGraphicsScene* scene;
+    Cannon* blackCannon;
+    Cannon* redCannon;
+    Cannon* currentCannon;
+    Cannon* enemy;
+};
