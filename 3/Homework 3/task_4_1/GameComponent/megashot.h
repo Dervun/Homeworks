@@ -15,5 +15,6 @@ private:
     int initialSpeed = 50;
     int shellSize = 40;
     const int radius = 50; ///< the radius of destruction of the enemy by shell
+    QGraphicsPixmapItem* bang;
 };
 

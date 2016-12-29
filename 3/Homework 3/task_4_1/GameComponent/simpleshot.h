@@ -12,5 +12,6 @@ public:
 
 private:
     void checkCollisionsWithCannons();
+    QGraphicsPixmapItem* bang;
 };
 

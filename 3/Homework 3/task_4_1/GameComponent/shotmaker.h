@@ -24,6 +24,7 @@ private slots:
 protected:
     QGraphicsItem* myCannon;
     QGraphicsPixmapItem* shell;
+    QGraphicsPixmapItem* bang;
     int initialSpeed = 70; ///< Initial speed, m/s
     int shellSize = 20; ///< = width = height
 

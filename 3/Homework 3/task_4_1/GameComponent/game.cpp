@@ -135,11 +135,8 @@ void Game::startNewGame()
     QList<QGraphicsItem*> itemsInScene = scene->items();
     for (QGraphicsItem* currentItem : itemsInScene)
     {
-        if (currentItem->data(0).toString() == "Result")
-        {
+        if (currentItem->data(0).toString() == "Result" || currentItem->data(0).toString() == "Bang")
             scene->removeItem(currentItem);
-            break;
-        }
     }
 
     blackCannon->setPosition(50);
