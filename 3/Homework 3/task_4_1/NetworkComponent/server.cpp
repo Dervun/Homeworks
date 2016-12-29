@@ -1,9 +1,10 @@
 #include "server.h"
 
-Server::Server(Game *currentGame)
+Server::Server(Game *currentGame, MainWindow* mainwindow)
 {
     game = currentGame;
 
+    connect(this, SIGNAL(portReadyToShow(char*)), mainwindow, SLOT(showPort(char*)));
     QNetworkConfigurationManager manager;
     if (manager.capabilities() & QNetworkConfigurationManager::NetworkSessionRequired)
     {
@@ -39,8 +40,5 @@ void Server::sessionOpened()
     tcpServer = new QTcpServer(this);
     tcpServer->listen();
 
-    QFile port("port");
-    port.open(QIODevice::WriteOnly);
-    port.write(QString::number(tcpServer->serverPort()).toLocal8Bit().data());
-    port.close();
+    emit portReadyToShow(QString::number(tcpServer->serverPort()).toLocal8Bit().data());
 }

@@ -26,6 +26,7 @@ class NetworkObject : public QObject
 signals:
     void connectedOtherNetworkObject();
     void disconnectedOtherNetworkObject();
+    void portReadyToShow(char* port);
 
     void acceptedThatShot();
     void acceptedThatMovedLeft();

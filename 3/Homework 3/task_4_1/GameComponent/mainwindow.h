@@ -21,12 +21,18 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+signals:
+    void connectToServer(int port);
+
 private slots:
     void createClient();
     void createServer();
     void hideNetworkSettings();
     void activateKeys();
     void deactivateKeys();
+    void showPort(char* port);
+    void tryToConnectToServer();
+    void showPortSettings();
 
 private:
     void setKeys();

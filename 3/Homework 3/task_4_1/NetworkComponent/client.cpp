@@ -14,13 +14,9 @@ Client::~Client()
     delete tcpSocket;
 }
 
-void Client::connectToServer()
+void Client::connectToServer(int port)
 {
-    QFile port("port");
-    port.open(QIODevice::ReadWrite | QIODevice::Text);
-    QByteArray data = port.readAll();
-    port.remove();
-    tcpSocket->connectToHost("localhost", data.toInt());
+    tcpSocket->connectToHost("localhost", port);
 }
 
 void Client::sessionOpened()

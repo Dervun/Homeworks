@@ -14,6 +14,6 @@ public:
     ~Client();
 
 private slots:
-    void connectToServer();
+    void connectToServer(int port);
     void sessionOpened();
 };

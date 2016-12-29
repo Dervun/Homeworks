@@ -97,7 +97,46 @@
      </rect>
     </property>
     <property name="text">
-     <string>Please choose who are you:</string>
+     <string> Please choose who are you:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="serverLabel">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>440</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Your port:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="portLabel">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>410</y>
+      <width>101</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string> Please, enter port:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditForPort">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>440</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

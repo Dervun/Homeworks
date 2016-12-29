@@ -14,6 +14,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->gameField->setScene(game->getScene());
 
     ui->connectButton->setVisible(false);
+    ui->serverLabel->setVisible(false);
+    ui->portLabel->setVisible(false);
+    ui->lineEditForPort->setVisible(false);
 
     setKeys();
     activateKeys();
@@ -52,14 +55,15 @@ void MainWindow::createClient()
 {
     network = new Client(game);
     connect(network, SIGNAL(connectedOtherNetworkObject()), this, SLOT(hideNetworkSettings()));
-    connect(ui->connectButton, SIGNAL(clicked(bool)), network, SLOT(connectToServer()));
+    connect(ui->connectButton, SIGNAL(clicked(bool)), this, SLOT(tryToConnectToServer()));
+    connect(this, SIGNAL(connectToServer(int)), network, SLOT(connectToServer(int)));
 
     disconnect(ui->clientButton, SIGNAL(clicked(bool)), this, SLOT(createClient()));
 }
 
 void MainWindow::createServer()
 {
-    network = new Server(game);
+    network = new Server(game, this);
     connect(network, SIGNAL(connectedOtherNetworkObject()), this, SLOT(hideNetworkSettings()));
     game->changeEnemy();
 
@@ -71,6 +75,8 @@ void MainWindow::hideNetworkSettings()
     ui->connectButton->setVisible(false);
     ui->serverButton->setVisible(false);
     ui->clientButton->setVisible(false);
+    ui->lineEditForPort->setVisible(false);
+    ui->portLabel->setVisible(false);
     setFixedHeight(400);
 }
 
@@ -108,6 +114,24 @@ void MainWindow::deactivateKeys()
     disconnect(keyD, SIGNAL(activated()), game, SLOT(moveRight()));
 }
 
+void MainWindow::showPort(char* port)
+{
+    ui->serverLabel->setText(QString(" Your port: ") + QString(port));
+    ui->serverLabel->setVisible(true);
+}
+
+void MainWindow::tryToConnectToServer()
+{
+    int port = ui->lineEditForPort->text().toInt();
+    emit connectToServer(port);
+}
+
+void MainWindow::showPortSettings()
+{
+    ui->portLabel->setVisible(true);
+    ui->lineEditForPort->setVisible(true);
+}
+
 void MainWindow::setKeys()
 {
     keyEnter->setKey(Qt::Key_Return);
@@ -133,6 +157,7 @@ void MainWindow::connectButtons()
     connect(ui->clientButton, SIGNAL(clicked(bool)), ui->clientButton, SLOT(setEnabled(bool)));
     connect(ui->clientButton, SIGNAL(clicked(bool)), ui->serverButton, SLOT(setVisible(bool)));
     connect(ui->clientButton, SIGNAL(clicked(bool)), ui->label, SLOT(setVisible(bool)));
+    connect(ui->clientButton, SIGNAL(clicked(bool)), this, SLOT(showPortSettings()));
 
     connect(ui->serverButton, SIGNAL(clicked(bool)), this, SLOT(createServer()));
     connect(ui->serverButton, SIGNAL(clicked(bool)), ui->serverButton, SLOT(setEnabled(bool)));
