@@ -24,8 +24,8 @@ void MegaShot::checkCollisionsWithCannons()
     {
         if (currentItem != myCannon && currentItem->data(0).toString() == "Cannon")
         {
-            bang->setX(shell->x() - radius * 2);
-            bang->setY(shell->y() - radius * 2);
+            bang->setX(shell->x() - radius);
+            bang->setY(shell->y() - radius);
             shell->scene()->addItem(bang);
             emit enemyDestroyed();
             break;
