@@ -40,6 +40,11 @@ void NetworkObject::acceptMessage()
         emit acceptedThatTurned();
         break;
     }
+    case changedType:
+    {
+        emit acceptedThatChangedShotType();
+        break;
+    }
     case newGame:
     {
         emit acceptedThatNewGame();
@@ -83,6 +88,11 @@ void NetworkObject::notifyThatTurned()
     sendMessage(turn);
 }
 
+void NetworkObject::notifyThatChangedShotType()
+{
+    sendMessage(changedType);
+}
+
 void NetworkObject::notifyThatNewGame()
 {
     sendMessage(newGame);
@@ -96,6 +106,7 @@ void NetworkObject::connectWithGame()
     connect(game, SIGNAL(rotatedUp()), this, SLOT(notifyThatRotatedUp()));
     connect(game, SIGNAL(rotatedDown()), this, SLOT(notifyThatRotatedDown()));
     connect(game, SIGNAL(turned()), this, SLOT(notifyThatTurned()));
+    connect(game, SIGNAL(changedShotType()), this, SLOT(notifyThatChangedShotType()));
     connect(game, SIGNAL(startedNewGame()), this, SLOT(notifyThatNewGame()));
 
     connect(this, SIGNAL(acceptedThatShot()), game, SLOT(makeShot()));
@@ -104,6 +115,7 @@ void NetworkObject::connectWithGame()
     connect(this, SIGNAL(acceptedThatRotatedUp()), game, SLOT(rotateUp()));
     connect(this, SIGNAL(acceptedThatRotatedDown()), game, SLOT(rotateDown()));
     connect(this, SIGNAL(acceptedThatTurned()), game, SLOT(mirror()));
+    connect(this, SIGNAL(acceptedThatChangedShotType()), game, SLOT(changeShotType()));
     connect(this, SIGNAL(acceptedThatNewGame()), game, SLOT(startNewGame()));
 }
 

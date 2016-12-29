@@ -25,6 +25,7 @@ signals:
     void rotatedUp();
     void rotatedDown();
     void turned();
+    void changedShotType();
     void startedNewGame();
 
     void lockScene();
@@ -38,6 +39,7 @@ private slots:
     void rotateUp();
     void rotateDown();
     void mirror();
+    void changeShotType();
 
     void changeCurrent();
     void displayResultOfGame();

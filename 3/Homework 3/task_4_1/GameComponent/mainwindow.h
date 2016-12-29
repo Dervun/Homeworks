@@ -40,6 +40,7 @@ private:
 
     QShortcut* keyEnter = new QShortcut(this);
     QShortcut* keySpace = new QShortcut(this);
+    QShortcut* keyTab = new QShortcut(this);
 
     QShortcut* keyUp = new QShortcut(this);
     QShortcut* keyDown = new QShortcut(this);

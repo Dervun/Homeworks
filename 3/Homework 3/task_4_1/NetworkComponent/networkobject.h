@@ -12,6 +12,7 @@ enum Event {
     upRotate,
     downRotate,
     turn,
+    changedType,
     newGame
 };
 
@@ -32,6 +33,7 @@ signals:
     void acceptedThatRotatedUp();
     void acceptedThatRotatedDown();
     void acceptedThatTurned();
+    void acceptedThatChangedShotType();
     void acceptedThatNewGame();
 
 protected slots:
@@ -45,6 +47,7 @@ private slots:
     void notifyThatRotatedUp();
     void notifyThatRotatedDown();
     void notifyThatTurned();
+    void notifyThatChangedShotType();
     void notifyThatNewGame();
 
 

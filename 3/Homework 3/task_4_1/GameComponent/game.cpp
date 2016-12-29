@@ -81,6 +81,12 @@ void Game::mirror()
     emit turned();
 }
 
+void Game::changeShotType()
+{
+    currentCannon->changeShotType();
+    emit changedShotType();
+}
+
 void Game::changeCurrent()
 {
     if (currentCannon == blackCannon)
@@ -100,7 +106,7 @@ void Game::addLandscapeAndCannonsAtScene()
 
     blackCannon = new Cannon(scene);
     blackCannon->setPosition(50);
-    redCannon = new Cannon(scene, red, mega);
+    redCannon = new Cannon(scene, red);
     currentCannon = blackCannon;
     enemy = redCannon;
 
@@ -140,6 +146,7 @@ void Game::startNewGame()
     redCannon->setPosition(550);
 
     currentCannon = blackCannon;
+    currentCannon->setSimpleShotType();
     updateSceneLocking();
     emit startedNewGame();
 }

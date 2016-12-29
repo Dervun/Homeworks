@@ -9,29 +9,32 @@ Cannon::Cannon(QGraphicsScene* onwerScene, CannonColor cannonColour, ShotType sh
 {
     scene = onwerScene;
     color = cannonColour;
+    type = shotType;
 
     convertMyCannonFromImage();
     myCannon->setTransformOriginPoint(size * 9 / 20, size * 5 / 7);
-
-    switch (shotType)
-    {
-    case simple:
-    {
-        shotMaker = new SimpleShot(myCannon);
-        break;
-    }
-    case mega:
-    {
-        shotMaker = new MegaShot(myCannon);
-        break;
-    }
-    }
-
     myCannon->setData(0, "Cannon");
     scene->addItem(myCannon);
     setPosition(0);
 
-    connect(shotMaker, SIGNAL(enemyDestroyed()), this, SLOT(setWinner()));
+    simpleShotMaker = new SimpleShot(myCannon);
+    megaShotMaker = new MegaShot(myCannon);
+    switch (type)
+    {
+    case simple:
+    {
+        shotMaker = simpleShotMaker;
+        break;
+    }
+    case mega:
+    {
+        shotMaker = megaShotMaker;
+        break;
+    }
+    }
+
+    connect(simpleShotMaker, SIGNAL(enemyDestroyed()), this, SLOT(setWinner()));
+    connect(megaShotMaker, SIGNAL(enemyDestroyed()), this, SLOT(setWinner()));
 }
 
 void Cannon::makeShot()
@@ -90,6 +93,19 @@ void Cannon::mirror()
     mirroring.translate(-(myCannon->boundingRect().width()), 0);
     myCannon->setTransform(mirroring, true);
     rightOrientation = !rightOrientation;
+}
+
+void Cannon::changeShotType()
+{
+    if (type == simple)
+        shotMaker = megaShotMaker;
+    else
+        shotMaker = simpleShotMaker;
+}
+
+void Cannon::setSimpleShotType()
+{
+    shotMaker = simpleShotMaker;
 }
 
 void Cannon::correctVerticalPosition()

@@ -32,6 +32,7 @@ MainWindow::~MainWindow()
     delete keyNewGame;
     delete keyEnter;
     delete keySpace;
+    delete keyTab;
 
     delete keyLeft;
     delete keyRight;
@@ -77,6 +78,7 @@ void MainWindow::activateKeys()
 {
     connect(keyEnter, SIGNAL(activated()), game, SLOT(makeShot()));
     connect(keySpace, SIGNAL(activated()), game, SLOT(mirror()));
+    connect(keyTab, SIGNAL(activated()), game, SLOT(changeShotType()));
 
     connect(keyLeft, SIGNAL(activated()), game, SLOT(moveLeft()));
     connect(keyRight, SIGNAL(activated()), game, SLOT(moveRight()));
@@ -93,6 +95,7 @@ void MainWindow::deactivateKeys()
 {
     disconnect(keyEnter, SIGNAL(activated()), game, SLOT(makeShot()));
     disconnect(keySpace, SIGNAL(activated()), game, SLOT(mirror()));
+    disconnect(keyTab, SIGNAL(activated()), game, SLOT(changeShotType()));
 
     disconnect(keyLeft, SIGNAL(activated()), game, SLOT(moveLeft()));
     disconnect(keyRight, SIGNAL(activated()), game, SLOT(moveRight()));
@@ -109,6 +112,7 @@ void MainWindow::setKeys()
 {
     keyEnter->setKey(Qt::Key_Return);
     keySpace->setKey(Qt::Key_Space);
+    keyTab->setKey(Qt::Key_Tab);
 
     keyLeft->setKey(Qt::Key_Left);
     keyRight->setKey(Qt::Key_Right);

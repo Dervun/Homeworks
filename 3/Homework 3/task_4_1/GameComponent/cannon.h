@@ -1,5 +1,6 @@
 #pragma once
-#include "shotmaker.h"
+#include "simpleshot.h"
+#include "megashot.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
@@ -37,6 +38,8 @@ public:
     void rotateUp();
     void rotateDown();
     void mirror();
+    void changeShotType();
+    void setSimpleShotType();
     ~Cannon();
 
 signals:
@@ -51,8 +54,11 @@ private:
 
     QGraphicsPixmapItem* myCannon = nullptr;
     QGraphicsScene* scene = nullptr;
-    ShotMaker* shotMaker = nullptr;
+    ShotMaker* shotMaker;
+    ShotMaker* simpleShotMaker;
+    ShotMaker* megaShotMaker;
     CannonColor color;
+    ShotType type;
     bool rightOrientation = true;
     const int size = 50; ///< = width = height of cannon
     const int minAngle = -45;
