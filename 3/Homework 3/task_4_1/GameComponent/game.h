@@ -44,8 +44,8 @@ private slots:
     void changeCurrent();
     void displayResultOfGame();
     void startNewGame();
-private:
     void updateSceneLocking();
+private:
     void addLandscapeAndCannonsAtScene();
 
     QGraphicsScene* scene;

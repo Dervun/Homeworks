@@ -83,6 +83,14 @@ Cannon::~Cannon()
 
 void Cannon::setWinner()
 {
+    connect(&timer, SIGNAL(timeout()), this, SLOT(alertAboutWinner()));
+    timer.start(1000);
+}
+
+void Cannon::alertAboutWinner()
+{
+    timer.stop();
+    disconnect(&timer, SIGNAL(timeout()), this, SLOT(alertAboutWinner()));
     emit hasWon();
 }
 

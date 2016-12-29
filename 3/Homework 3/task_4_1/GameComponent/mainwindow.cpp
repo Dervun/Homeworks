@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lineEditForPort->setVisible(false);
 
     setKeys();
-    activateKeys();
+    //activateKeys();
     connect(keyNewGame, SIGNAL(activated()), game, SLOT(startNewGame()));
 
     connectButtons();
@@ -55,7 +55,9 @@ void MainWindow::createClient()
 {
     network = new Client(game);
     connect(network, SIGNAL(connectedOtherNetworkObject()), this, SLOT(hideNetworkSettings()));
+    connect(network, SIGNAL(connectedOtherNetworkObject()), game, SLOT(updateSceneLocking()));
     connect(ui->connectButton, SIGNAL(clicked(bool)), this, SLOT(tryToConnectToServer()));
+    connect(keyEnter, SIGNAL(activated()), this, SLOT(tryToConnectToServer()));
     connect(this, SIGNAL(connectToServer(int)), network, SLOT(connectToServer(int)));
 
     disconnect(ui->clientButton, SIGNAL(clicked(bool)), this, SLOT(createClient()));
@@ -65,6 +67,7 @@ void MainWindow::createServer()
 {
     network = new Server(game, this);
     connect(network, SIGNAL(connectedOtherNetworkObject()), this, SLOT(hideNetworkSettings()));
+    connect(network, SIGNAL(connectedOtherNetworkObject()), game, SLOT(updateSceneLocking()));
     game->changeEnemy();
 
     disconnect(ui->serverButton, SIGNAL(clicked(bool)), this, SLOT(createServer()));
@@ -123,6 +126,7 @@ void MainWindow::showPort(char* port)
 void MainWindow::tryToConnectToServer()
 {
     int port = ui->lineEditForPort->text().toInt();
+    disconnect(keyEnter, SIGNAL(activated()), this, SLOT(tryToConnectToServer()));
     emit connectToServer(port);
 }
 

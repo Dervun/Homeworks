@@ -10,5 +10,6 @@
         <file>images/cannons/red_cannon.png</file>
         <file>images/congratulation.jpg</file>
         <file>images/destroyed.png</file>
+        <file>images/bang.png</file>
     </qresource>
 </RCC>

@@ -47,6 +47,7 @@ signals:
 
 private slots:
     void setWinner();
+    void alertAboutWinner();
 
 private:
     void correctVerticalPosition();
@@ -59,6 +60,7 @@ private:
     ShotMaker* megaShotMaker;
     CannonColor color;
     ShotType type;
+    QTimer timer;
     bool rightOrientation = true;
     const int size = 50; ///< = width = height of cannon
     const int minAngle = -45;
