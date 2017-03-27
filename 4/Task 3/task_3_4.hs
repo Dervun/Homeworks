@@ -5,16 +5,29 @@ check string | check' string  = "Correct"
              | otherwise      = "Incorrect"
 
 check' :: [Char] -> Bool
-check' string = helper string 0 0 0
+check' string = helper string []
     where
-        helper [] bal1 bal2 bal3 | bal1 == 0 && bal2 == 0 && bal3 == 0  = True
-                                 | otherwise                            = False
-        helper (headOfString:tailOfString) bal1 bal2 bal3
-            | bal1 < 0 || bal2 < 0 || bal3 < 0  = False
-            | headOfString == '('  = helper tailOfString (bal1 + 1) bal2 bal3
-            | headOfString == ')'  = helper tailOfString (bal1 - 1) bal2 bal3
-            | headOfString == '['  = helper tailOfString bal1 (bal2 + 1) bal3
-            | headOfString == ']'  = helper tailOfString bal1 (bal2 - 1) bal3
-            | headOfString == '{'  = helper tailOfString bal1 bal2 (bal3 + 1)
-            | headOfString == '}'  = helper tailOfString bal1 bal2 (bal3 - 1)
-            | otherwise            = helper tailOfString bal1 bal2 bal3
+        helper [] stack | stack == []  = True
+                        | otherwise    = False
+        helper (headOfString:tailOfString) stack
+            | isOpenBr headOfString                  = helper tailOfString (headOfString:stack)
+            | isCloseBr headOfString && stack == []  = False
+            | isCloseBr headOfString                 = if equalBr (head stack) headOfString
+                                                           then helper tailOfString (tail stack)
+                                                           else False
+            | otherwise                              = helper tailOfString stack
+
+isOpenBr '(' = True
+isOpenBr '[' = True
+isOpenBr '{' = True
+isOpenBr _   = False
+
+isCloseBr ')' = True
+isCloseBr ']' = True
+isCloseBr '}' = True
+isCloseBr _ = False
+
+equalBr '(' ')' = True
+equalBr '[' ']' = True
+equalBr '{' '}' = True
+equalBr _   _   = False
